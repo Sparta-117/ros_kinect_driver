@@ -33,9 +33,9 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package()
 include_directories(${catkin_INCLUDE_DIRS})
 #self file
-# include_directories(../../devel/include)
+include_directories(../../devel/include)
 include_directories(include/kinect_driver)
-include_directories(include)
+# include_directories(include)
 include_directories( ${PROJECT_SOURCE_DIR}/include )
 ############### execute ######################
 # file(GLOB srcs "${PROJECT_SOURCE_DIR}/src/*.cpp")
@@ -43,11 +43,20 @@ set(srcs src/main.cpp src/OpenNI2Interface.cpp)
 add_executable(kinect_driver
                ${srcs}
 )
+add_executable(kinect_server
+               src/kinect_server.cpp
+)
 
 target_link_libraries(kinect_driver
 		      ${catkin_LIBRARIES}
-                      ${OPENNI2_LIBRARY}
-   		      ${OpenCV_LIBS}
+          ${OPENNI2_LIBRARY}
+ 		      ${OpenCV_LIBS}
 		      ${PCL_LIBRARIES}
+)
+target_link_libraries(kinect_server
+          ${catkin_LIBRARIES}
+          ${OPENNI2_LIBRARY}
+          ${OpenCV_LIBS}
+          ${PCL_LIBRARIES}
 )
 
